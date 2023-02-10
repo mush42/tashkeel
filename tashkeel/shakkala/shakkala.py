@@ -21,14 +21,16 @@ Created on Sat Dec 16 22:46:28 2017
 
 @author: Ahmad Barqawi
 """
-from . import helper
 import os
-import onnxruntime as ort
-import numpy as np
 
+import numpy as np
+import onnxruntime as ort
+
+from . import helper
 
 MAX_CHARS = 315
 ORT_PROVIDERS = ["CPUExecutionProvider"]
+
 THIS_DIRECTORY = os.path.abspath(os.path.dirname(__file__))
 DATA_DIRECTORY = os.path.join(THIS_DIRECTORY, "data")
 DICT_DIRECTORY = os.path.join(DATA_DIRECTORY, "dictionary")

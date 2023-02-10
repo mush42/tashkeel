@@ -20,12 +20,13 @@ Created on Sat Dec 16 22:46:28 2017
 @author: Ahmad Barqawi
 """
 
-import numpy as np
-import os
 import glob
-import string
-import re
+import os
 import pickle
+import re
+import string
+
+import numpy as np
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 # convert using chr(harakat[0])
@@ -48,7 +49,6 @@ def load_binary(file, folder):
 
 
 def get_sentences(data):
-
     return [
         sent
         for line in re.split("[\n,،]+", data)
@@ -83,11 +83,9 @@ def get_harakat():
 
 
 def get_taskel(sentence):
-
     output = []
     current_haraka = ""
     for ch in reversed(sentence):
-
         if ord(ch) in harakat:
             if (
                 (current_haraka == "")
