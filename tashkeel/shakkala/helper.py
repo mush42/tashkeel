@@ -20,9 +20,6 @@ Created on Sat Dec 16 22:46:28 2017
 @author: Ahmad Barqawi
 """
 
-import glob
-import os
-import pickle
 import re
 import string
 
@@ -32,20 +29,6 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 # convert using chr(harakat[0])
 harakat = [1614, 1615, 1616, 1618, 1617, 1611, 1612, 1613]
 connector = 1617
-
-
-def save_binary(data, file, folder):
-    location = os.path.join(folder, (file + ".pickle"))
-    with open(location, "wb") as ff:
-        pickle.dump(data, ff, protocol=pickle.HIGHEST_PROTOCOL)
-
-
-def load_binary(file, folder):
-    location = os.path.join(folder, (file + ".pickle"))
-    with open(location, "rb") as ff:
-        data = pickle.load(ff)
-
-    return data
 
 
 def get_sentences(data):

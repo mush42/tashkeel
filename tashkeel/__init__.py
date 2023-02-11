@@ -14,7 +14,8 @@ def tashkeel(input_text):
     if SHAKKALA_INSTANCE is None:
         SHAKKALA_INSTANCE = Shakkala()
     sh = SHAKKALA_INSTANCE
-    input_int = sh.prepare_input(input_text).astype(np.float32)
+    #input_int = sh.prepare_input(input_text).astype(np.float32)
+    input_int = sh.prepare_input(input_text)
     logits = sh.model.run(None, {"embedding_7_input": input_int})[0][0]
     predicted_harakat = sh.logits_to_text(logits)
     return sh.get_final_text(input_text, predicted_harakat)

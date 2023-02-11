@@ -27,25 +27,22 @@ import numpy as np
 import onnxruntime as ort
 
 from . import helper
+from .dictionary import INPUT_VOCAB_TO_INT, OUTPUT_INT_TO_VOCAB
+
 
 MAX_CHARS = 315
 ORT_PROVIDERS = ["CPUExecutionProvider"]
 
 THIS_DIRECTORY = os.path.abspath(os.path.dirname(__file__))
-DATA_DIRECTORY = os.path.join(THIS_DIRECTORY, "data")
-DICT_DIRECTORY = os.path.join(DATA_DIRECTORY, "dictionary")
-MODEL_PATH = os.path.join(DATA_DIRECTORY, "model", "model.onnx")
+MODEL_PATH = os.path.join(THIS_DIRECTORY, "model", "model.onnx")
 
 
 class Shakkala:
     def __init__(self):
         self.model = ort.InferenceSession(MODEL_PATH, providers=ORT_PROVIDERS)
-        input_vocab_to_int = helper.load_binary("input_vocab_to_int", DICT_DIRECTORY)
-        output_int_to_vocab = helper.load_binary("output_int_to_vocab", DICT_DIRECTORY)
-
         self.dictionary = {
-            "input_vocab_to_int": input_vocab_to_int,
-            "output_int_to_vocab": output_int_to_vocab,
+            "input_vocab_to_int": INPUT_VOCAB_TO_INT,
+            "output_int_to_vocab": OUTPUT_INT_TO_VOCAB,
         }
 
     def prepare_input(self, input_sent):
@@ -81,4 +78,4 @@ class Shakkala:
         return helper.clear_tashkel(input_sent)
 
     def __pad_size(self, x, length=None):
-        return helper.pad_sequences(x, maxlen=length, padding="post")
+        return helper.pad_sequences(x, maxlen=length, padding="post", dtype=np.float32)
